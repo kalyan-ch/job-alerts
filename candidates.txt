@@ -134,3 +134,14 @@ sourcegraph
 replit
 codeium
 cursor
+palantir
+lucidmotors
+zscaler
+roblox
+riotgames
+epicgames
+flexport
+sofi
+nerdwallet
+coursera
+udemy

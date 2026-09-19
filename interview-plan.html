@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interview Plan — L5 to L6</title>
+<style>
+  :root { color-scheme: light dark; --fg:#1a1a1a; --bg:#fdfdfc; --mut:#666; --line:#ddd; --acc:#8a4b2a; }
+  @media (prefers-color-scheme: dark) {
+    :root { --fg:#e8e6e3; --bg:#1c1c1a; --mut:#999; --line:#333; --acc:#d89b6a; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:2rem 1rem 6rem; font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+         color:var(--fg); background:var(--bg); max-width:44rem; margin-inline:auto; }
+  h1 { font-size:1.6rem; margin:0 0 .25rem; }
+  h2 { font-size:1.15rem; margin:2.5rem 0 .75rem; padding-top:1rem; border-top:1px solid var(--line); }
+  h3 { font-size:.95rem; margin:1.5rem 0 .5rem; color:var(--acc); }
+  .sub { color:var(--mut); margin:0 0 1.5rem; }
+  .bar { position:sticky; top:0; background:var(--bg); padding:.75rem 0; border-bottom:1px solid var(--line);
+         margin-bottom:1rem; font-size:.9rem; z-index:1; }
+  .bar b { color:var(--acc); }
+  progress { width:100%; height:6px; display:block; margin-top:.4rem; }
+  label { display:flex; gap:.6rem; align-items:baseline; padding:.4rem 0; cursor:pointer; }
+  label:has(:checked) { color:var(--mut); text-decoration:line-through; text-decoration-thickness:1px; }
+  input[type=checkbox] { flex:none; width:1.05rem; height:1.05rem; margin:0; accent-color:var(--acc); }
+  table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:.9rem; }
+  th,td { text-align:left; padding:.45rem .5rem; border-bottom:1px solid var(--line); }
+  th { color:var(--mut); font-weight:600; }
+  td:nth-child(2) { text-align:right; white-space:nowrap; }
+  .note { border-left:3px solid var(--acc); padding:.5rem 0 .5rem .85rem; margin:1rem 0; font-size:.92rem; }
+  code { background:color-mix(in srgb, var(--fg) 8%, transparent); padding:.1em .35em; border-radius:3px; font-size:.87em; }
+  ul { padding-left:1.2rem; }
+  li { margin:.3rem 0; }
+  .warn { color:var(--acc); font-weight:600; }
+  footer { margin-top:3rem; padding-top:1rem; border-top:1px solid var(--line); color:var(--mut); font-size:.85rem; }
+  button { font:inherit; font-size:.85rem; padding:.3rem .7rem; border:1px solid var(--line);
+           background:transparent; color:var(--mut); border-radius:4px; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<h1>Interview Plan — Senior to Staff</h1>
+<p class="sub">60 hrs over 10 weeks · 5–8 hrs/wk, evenings · cold start on all four blocks</p>
+
+<div class="bar">
+  <span><b id="done">0</b> / <span id="total">0</span> done</span>
+  <progress id="prog" value="0" max="1"></progress>
+</div>
+
+<div class="note">
+  Standard cold-start recommendation is <b>~130 hrs</b> (3 months × 11 hrs/wk). You have ~60. This is a
+  triage plan. The compensating lever is <b>application sequencing</b> — see Week 0.
+</div>
+
+<table>
+  <tr><th>Block</th><th>Hrs</th><th>Why</th></tr>
+  <tr><td>Coding</td><td>24</td><td>The gate — fail the screen, nothing else gets used</td></tr>
+  <tr><td>System design</td><td>18</td><td>Vocabulary first, then defense</td></tr>
+  <tr><td>Behavioral</td><td>12</td><td>Sets level, not entry</td></tr>
+  <tr><td>Debug / code review</td><td>6</td><td>Cheap, almost nobody preps it</td></tr>
+  <tr><td>Java/JVM</td><td>0</td><td>Only if targeting Databricks / Confluent / Snowflake</td></tr>
+</table>
+
+<h2>Week 0 — Admin, before any studying</h2>
+<label><input type="checkbox"> Ask every recruiter <b>in writing, per round</b>: is AI allowed? It's a per-round policy now, not per-company</label>
+<label><input type="checkbox"> Confirm coding language with recruiter if Confluent or Databricks is in scope (language choice has routed candidates to a different track)</label>
+<label><input type="checkbox"> Order the application list by loop style, not prestige (below)</label>
+<label><input type="checkbox"> Decide: rusty vs never-did-it on coding — refresher is ~3 weeks, true cold start is 6–7 months</label>
+
+<h3>Open with these — reward working-engineer skill</h3>
+<ul>
+  <li><b>Stripe</b> — coding round explicitly not LeetCode (simple IAM, blur card numbers from logs, rate limiter). Bug Bash + Integrations are debugging, not algorithms.</li>
+  <li><b>Ramp</b> — pair-programming screen, own IDE, build a real feature. Silent coding is a negative signal.</li>
+  <li><b>Plaid</b> — rewards correctness and edge cases over clever algorithms.</li>
+  <li><b>Cloudflare</b> — one medium DSA or a practical task. Networking/DNS/TLS weigh more than patterns.</li>
+  <li><b>Palantir</b> — problem decomposition is pseudocode-at-most.</li>
+</ul>
+
+<h3>Hold these until coding is warm</h3>
+<ul>
+  <li><b>Databricks</b> — three coding rounds, "LC hard more than medium", concurrency round rated hardest</li>
+  <li><b>Snowflake</b> — hard LC each with a harder follow-up, plus language-internals probe</li>
+  <li><b>Airbnb</b> — one hard problem per round</li>
+</ul>
+
+<div class="note">
+  From ~100K interviews: technical ability did <b>not</b> obviously track success — <b>practice count did</b>.
+  Only ~25% of candidates perform consistently interview to interview. Treat the first wave as paid practice.
+</div>
+
+<h2>Coding — 24 hrs, ~2.5 hrs/wk throughout</h2>
+<p class="sub">Runs in parallel with every other block. Don't batch it.</p>
+<label><input type="checkbox"> Blind 75 — patterns, not problem count</label>
+<label><input type="checkbox"> Arrays / strings (~30% of asks)</label>
+<label><input type="checkbox"> Trees + graphs (~25%) — graph frequency rose on senior tracks 2022–24</label>
+<label><input type="checkbox"> DP (~15%)</label>
+<label><input type="checkbox"> Binary search (~8%), heap/PQ (~7%)</label>
+<label><input type="checkbox"> Stacked-pattern problems: Top-K Frequent (hashmap + heap)</label>
+<label><input type="checkbox"> Sliding Window Median (window + two heaps)</label>
+<label><input type="checkbox"> Word Ladder (BFS over implicit graph)</label>
+<label><input type="checkbox"> Talk out loud every session — silent solving trains the wrong skill</label>
+<div class="note">
+  DSA bar is <b>not</b> lower for senior. CoderPad 2026: algorithmic questions in 43% of assessments,
+  flat from 44% in 2025. Senior problems stack patterns rather than testing one.
+</div>
+
+<h2>System design — 18 hrs, weeks 2–6</h2>
+<h3>Phase 1 — the 12 primitives</h3>
+<label><input type="checkbox"> APIs · SQL vs NoSQL · CAP</label>
+<label><input type="checkbox"> Load balancers · caching · message queues</label>
+<label><input type="checkbox"> Indexing · replication · consistent hashing</label>
+<label><input type="checkbox"> Failover · web auth/security · scaling</label>
+
+<h3>Phase 2 — classic prompts (6–8)</h3>
+<label><input type="checkbox"> <b>Rate limiter</b> — highest-frequency single prompt, do it first</label>
+<label><input type="checkbox"> Pastebin / unique ID generation</label>
+<label><input type="checkbox"> Notification system</label>
+<label><input type="checkbox"> Chat (polling vs WebSockets)</label>
+<label><input type="checkbox"> Job scheduler</label>
+<label><input type="checkbox"> Ticketmaster (contention + consistency)</label>
+
+<h3>Phase 3 — defense drill</h3>
+<label><input type="checkbox"> After each design, argue the <b>opposite</b> position for 10 min. Can't? You didn't understand the tradeoff.</label>
+<label><input type="checkbox"> Idempotency keys — and dedupe <i>before</i> the rate-limit check so retries don't burn quota</label>
+<label><input type="checkbox"> At-least-once vs exactly-once vs at-most-once — name which you chose and why</label>
+<label><input type="checkbox"> Consistency boundaries: which parts tolerate eventual, which break the business</label>
+<label><input type="checkbox"> Saga compensating-transaction failure modes</label>
+<label><input type="checkbox"> Rate limiter p99 tradeoff: centralized counter (SPOF + latency) vs local-plus-sync (temporary over-admission). "Use Redis" alone fails.</label>
+
+<h3>Per-company flavor</h3>
+<ul>
+  <li><b>Cloudflare</b> — "design it <i>without</i> managed cloud services like S3 or Pub/Sub"</li>
+  <li><b>Confluent</b> — partitioning, offset tracking, exactly-once. Always name what you trade off; they look for that framing.</li>
+  <li><b>Datadog</b> — narrower than peers, no "Design Twitter". Used explicitly for leveling.</li>
+  <li><b>Plaid</b> — webhooks, retry/backoff, flaky bank APIs, idempotency</li>
+  <li><b>Snowflake</b> — DB internals probed. Reported prompt: design an RPC system.</li>
+</ul>
+
+<div class="note">
+  AI/LLM design is <b>additive, not a replacement</b>. Anthropic's design round asks LLM-serving
+  (batching, queuing, GPU utilization under variable load). Everywhere else classic distsys is still
+  the round you pass or fail on — interviewing.io's design guide has zero LLM content.
+  Skip DDIA cover-to-cover.
+</div>
+
+<h2>Behavioral — 12 hrs, weeks 4–8</h2>
+<label><input type="checkbox"> List every project where you owned a decision someone disagreed with</label>
+<label><input type="checkbox"> Build <b>8–15 stories</b> with competency mapping — interviewers layer multiple examples against the same competency</label>
+<label><input type="checkbox"> Open each with a <b>Table of Contents</b>: "three parts — the architecture call, the org change across five teams, the customer comms." Then depth on request.</label>
+<label><input type="checkbox"> Cut situation setup ruthlessly — <b>actions</b> carry the most weight</label>
+<label><input type="checkbox"> Audit each story for scope: feature-level told at staff scope reads as down-level evidence</label>
+
+<h3>Scored axes</h3>
+<ul>
+  <li>Scope of impact — one team / multi-team / org-wide</li>
+  <li>Ambiguity tolerance</li>
+  <li>Influence without authority</li>
+  <li>Judgment under tradeoffs, second- and third-order thinking</li>
+  <li>Self-awareness about failure</li>
+</ul>
+
+<h3>Company-specific</h3>
+<label><input type="checkbox"> <b>Anthropic</b> — how would you feel if the company dropped AI ambitions for safety and "sent the stock to zero"? Plus a moral quandary you faced. Skepticism scores better than enthusiasm.</label>
+<label><input type="checkbox"> <b>Stripe</b> — graded on "use of soft power". Staff+ Presentation round drives leveling.</label>
+<label><input type="checkbox"> <b>Airbnb</b> — technical experience round carries leveling weight; they send a tenets list beforehand, map a story to each</label>
+<label><input type="checkbox"> <b>Palantir</b> — no dedicated round; ~20 min of behavioral embedded in <i>every</i> onsite round</label>
+
+<div class="note">
+  Technical gets you hired, behavioral sets your level. An ex-Meta hiring committee chair reads
+  behavioral feedback <b>first</b> on staff packets. Down-level cost ~20–30% comp.
+  Plain STAR breaks at staff scope — stories span months and multiple workstreams.
+</div>
+
+<h2>Debug &amp; code review — 6 hrs, weeks 6–7</h2>
+<label><input type="checkbox"> Pull a real bug from your own git history, have someone reintroduce it, find it cold</label>
+<label><input type="checkbox"> Review an unfamiliar OSS PR on a 45-min timer</label>
+<label><input type="checkbox"> Clone an OSS repo, ship a small feature in 90 min</label>
+<div class="note">
+  Grading axis: <b>juniors flag style, seniors flag correctness risk and rank findings by impact.</b>
+  Stripe's Bug Bash rewards methodical hypothesis-testing over barreling in. Palantir plants
+  <span class="warn">deliberate red herrings</span> — don't fixate on the first bug.
+  CoderPad 2026: code review 21%, debugging 19% of assessments.
+</div>
+
+<h2>Weeks 8–10 — Volume</h2>
+<label><input type="checkbox"> 2 mocks/week minimum</label>
+<label><input type="checkbox"> At least half behavioral and design, not coding — that's where 10+ YOE seniors report getting rejected while coding goes fine</label>
+
+<h2>Loop lengths — for sequencing applications</h2>
+<table>
+  <tr><th>Company</th><th>Weeks</th></tr>
+  <tr><td>Anthropic · Palantir · Figma</td><td>3–4</td></tr>
+  <tr><td>Airbnb</td><td>2–5</td></tr>
+  <tr><td>Snowflake (staff 4–6)</td><td>2–4</td></tr>
+  <tr><td>Cloudflare</td><td>3–5</td></tr>
+  <tr><td>Stripe (2 with referral)</td><td>~6</td></tr>
+  <tr><td>Datadog</td><td>~6</td></tr>
+  <tr><td>Coinbase</td><td>6–8</td></tr>
+  <tr><td>Databricks</td><td>up to 8</td></tr>
+</table>
+
+<footer>
+  <p>Skipped: DDIA cover-to-cover, ML system design fundamentals, take-home practice (only 21% of orgs
+  still use them), Java/JVM depth. Add when: a target company confirms one.</p>
+  <p>Sources: CoderPad State of Tech Hiring 2025/2026 · interviewing.io company guides and practice-gap
+  research · Hello Interview · Axios 2026-08-24 (Anthropic) · Databricks Staff Backend job posting.
+  Company loop details are aggregated from candidate reports and go stale — the recruiter is the
+  source of truth for your specific loop.</p>
+  <p><button id="reset">Reset all checkboxes</button></p>
+</footer>
+
+<script>
+// Checkbox state keyed by index, kept in localStorage. Index is stable as long as the list order is.
+const boxes = [...document.querySelectorAll('input[type=checkbox]')];
+const KEY = 'interview-plan-v1';
+const prog = document.getElementById('prog');
+const done = document.getElementById('done');
+document.getElementById('total').textContent = boxes.length;
+prog.max = boxes.length;
+
+let saved = [];
+try { saved = JSON.parse(localStorage.getItem(KEY)) || []; } catch {}
+boxes.forEach((b, i) => b.checked = !!saved[i]);
+
+function sync() {
+  const n = boxes.filter(b => b.checked).length;
+  done.textContent = n;
+  prog.value = n;
+  try { localStorage.setItem(KEY, JSON.stringify(boxes.map(b => b.checked))); } catch {}
+}
+boxes.forEach(b => b.addEventListener('change', sync));
+document.getElementById('reset').addEventListener('click', () => {
+  boxes.forEach(b => b.checked = false);
+  sync();
+});
+sync();
+</script>
+</body>
+</html>

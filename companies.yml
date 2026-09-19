@@ -107,3 +107,16 @@ companies:
   - { board: greenhouse, slug: flyzipline }   # 340 jobs
   - { board: greenhouse, slug: eventbriteinc }   # 1 jobs
   - { board: greenhouse, slug: wizinc }   # 136 jobs
+  # Added 2026-09-18 — larger-cap names that do use these boards.
+  - { board: lever, slug: palantir }   # 313 jobs
+  - { board: lever, slug: spotify }   # 71 jobs
+  - { board: greenhouse, slug: lucidmotors }   # 401 jobs
+  - { board: greenhouse, slug: zscaler }   # 370 jobs
+  - { board: greenhouse, slug: roblox }   # 245 jobs
+  - { board: greenhouse, slug: riotgames }   # 155 jobs
+  - { board: greenhouse, slug: epicgames }   # 150 jobs
+  - { board: greenhouse, slug: flexport }   # 198 jobs
+  - { board: greenhouse, slug: sofi }   # 57 jobs
+  - { board: ashby, slug: nerdwallet }   # 22 jobs
+  - { board: greenhouse, slug: coursera }   # 17 jobs
+  - { board: greenhouse, slug: udemy }   # 7 jobs
