@@ -1,5 +1,12 @@
 package com.jobalerts;
 
+import com.jobalerts.ats.AtsClient;
+import com.jobalerts.config.Props;
+import com.jobalerts.domain.Scored;
+import com.jobalerts.filter.Prefilter;
+import com.jobalerts.notify.Discord;
+import com.jobalerts.score.Scorer;
+import com.jobalerts.store.SeenStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
@@ -38,7 +45,7 @@ public class DailyJob implements ApplicationRunner {
 
         var top = scorer.score(kept).stream()
                 .filter(s -> s.score() >= p.minScore())
-                .sorted(Comparator.comparingInt(Scorer.Scored::score).reversed())
+                .sorted(Comparator.comparingInt(Scored::score).reversed())
                 .limit(p.maxJobs())
                 .toList();
 

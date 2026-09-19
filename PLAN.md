@@ -104,18 +104,26 @@ job-alerts/
   resume.txt
   src/main/java/.../
     JobAlertsApplication.java
-    Job.java                 record
-    AtsClient.java           3 fetch methods
-    Prefilter.java           rules
-    Scorer.java              local LLM call
-    SeenStore.java           load/append seen.txt
-    Discord.java             one POST
-    DailyJob.java            @Scheduled, wires the 5 above
+    DailyJob.java            @Scheduled, wires the layers below
+    config/                  Props, Boards          (binds application.yml + companies.yml)
+    domain/                  Job, Scored            (records, no behaviour)
+    ats/                     Board (interface), Greenhouse/Lever/AshbyBoard,
+                             Http (shared GET + text cleanup), AtsClient (fans out)
+    filter/                  Prefilter
+    score/                   Scorer
+    store/                   SeenStore
+    notify/                  Discord
   src/main/resources/application.yml
-  src/test/java/.../PrefilterTest.java
+  src/test/java/.../         Fixtures, WiringTest, and one test per layer
 ```
 
-~450 lines. Nine classes, no interfaces, no service layer, no DB driver.
+~500 lines. One interface — `Board`, because there are three of them today and
+more later. Everything else is a concrete class; no service layer over the
+components, no repository over a text file.
+
+**Adding a board**: implement `Board`, annotate `@Component`, add the slug to
+`companies.yml`. `AtsClient` picks it up by `name()`; nothing else changes.
+`WiringTest` fails if `companies.yml` names a board with no implementation.
 
 ## Build order
 

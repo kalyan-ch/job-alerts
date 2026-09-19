@@ -1,5 +1,8 @@
-package com.jobalerts;
+package com.jobalerts.score;
 
+import com.jobalerts.config.Props;
+import com.jobalerts.domain.Job;
+import com.jobalerts.domain.Scored;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -38,8 +41,6 @@ public class Scorer {
                             "additionalProperties", false))),
             "required", List.of("results"),
             "additionalProperties", false);
-
-    public record Scored(Job job, int score, String reason, boolean visaRisk) {}
 
     private final RestClient http;
     private final Props p;
@@ -94,7 +95,7 @@ public class Scorer {
     }
 
     /** Local models wrap JSON in prose or ```json fences even under a schema — cut to the outermost object. */
-    static JsonNode parse(String content) {
+    public static JsonNode parse(String content) {
         int start = content.indexOf('{'), end = content.lastIndexOf('}');
         if (start < 0 || end <= start) return JSON.createObjectNode();
         return JSON.readTree(content.substring(start, end + 1));

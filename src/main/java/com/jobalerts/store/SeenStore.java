@@ -1,5 +1,7 @@
-package com.jobalerts;
+package com.jobalerts.store;
 
+import com.jobalerts.config.Props;
+import com.jobalerts.domain.Job;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;

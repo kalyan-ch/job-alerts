@@ -1,4 +1,4 @@
-package com.jobalerts;
+package com.jobalerts.domain;
 
 import java.time.Instant;
 

@@ -1,5 +1,7 @@
-package com.jobalerts;
+package com.jobalerts.filter;
 
+import com.jobalerts.config.Props;
+import com.jobalerts.domain.Job;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,7 +16,7 @@ public class Prefilter {
     private final Props p;
     private final Pattern location, reject, visa;
 
-    Prefilter(Props p) {
+    public Prefilter(Props p) {
         this.p = p;
         this.location = ci(p.locationRegex());
         this.reject = ci(p.rejectRegex());
@@ -25,7 +27,7 @@ public class Prefilter {
 
     public List<Job> apply(List<Job> jobs) { return jobs.stream().filter(this::keep).toList(); }
 
-    boolean keep(Job j) {
+    public boolean keep(Job j) {
         String text = j.title() + "\n" + j.location() + "\n" + j.descriptionText();
         if (!titleOk(j.title())) return false;
         if (reject.matcher(text).find()) return false;
@@ -41,7 +43,7 @@ public class Prefilter {
     }
 
     /** No range found = pass; CA requires disclosure but not everyone complies. */
-    boolean payOk(String description) {
+    public boolean payOk(String description) {
         Matcher m = PAY.matcher(description);
         long max = 0;
         boolean found = false;
