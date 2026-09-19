@@ -145,3 +145,7 @@ sofi
 nerdwallet
 coursera
 udemy
+
+# Workday tenants — not probeable by probe.sh (different API shape).
+# Verified by hand 2026-09-19: nvidia ebay adobe salesforce paypal
+# MISS on Workday too: apple meta google amazon microsoft netflix uber tesla

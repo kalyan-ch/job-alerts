@@ -20,9 +20,11 @@
          margin-bottom:1rem; font-size:.9rem; z-index:1; }
   .bar b { color:var(--acc); }
   progress { width:100%; height:6px; display:block; margin-top:.4rem; }
-  label { display:flex; gap:.6rem; align-items:baseline; padding:.4rem 0; cursor:pointer; }
+  /* Hanging indent, not flex — flex would make each inline child (<b>, <i>) its own column. */
+  label { display:block; padding:.4rem 0 .4rem 1.65rem; text-indent:-1.65rem; cursor:pointer; }
   label:has(:checked) { color:var(--mut); text-decoration:line-through; text-decoration-thickness:1px; }
-  input[type=checkbox] { flex:none; width:1.05rem; height:1.05rem; margin:0; accent-color:var(--acc); }
+  input[type=checkbox] { width:1.05rem; height:1.05rem; margin:0 .6rem 0 0; vertical-align:-2px;
+                         text-indent:0; accent-color:var(--acc); }
   table { width:100%; border-collapse:collapse; margin:1rem 0; font-size:.9rem; }
   th,td { text-align:left; padding:.45rem .5rem; border-bottom:1px solid var(--line); }
   th { color:var(--mut); font-weight:600; }

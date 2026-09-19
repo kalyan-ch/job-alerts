@@ -120,3 +120,12 @@ companies:
   - { board: ashby, slug: nerdwallet }   # 22 jobs
   - { board: greenhouse, slug: coursera }   # 17 jobs
   - { board: greenhouse, slug: udemy }   # 7 jobs
+
+  # Workday — big tech runs no Greenhouse/Lever/Ashby board. Slug is
+  # tenant/wdN/site/searchText; the search term is required because these
+  # tenants hold 300-2000 jobs each. See WorkdayBoard.
+  - { board: workday, slug: "nvidia/wd5/NVIDIAExternalCareerSite/backend engineer" }        # 132 matches
+  - { board: workday, slug: "ebay/wd5/apply/backend engineer" }                             # 71 matches
+  - { board: workday, slug: "adobe/wd5/external_experienced/backend engineer" }             # 64 matches
+  - { board: workday, slug: "salesforce/wd12/External_Career_Site/backend engineer" }       # 43 matches
+  - { board: workday, slug: "paypal/wd1/jobs/backend engineer" }                            # 15 matches
