@@ -1,0 +1,20 @@
+spring:
+  main.web-application-type: none
+  config.import:
+    - optional:file:companies.yml
+    - optional:file:${user.home}/.job-alerts.env[.properties]
+
+jobalerts:
+  seen-file: seen.txt
+  resume-file: resume.txt
+  min-score: 70
+  pay-floor: 180000
+  max-jobs: 10
+  location-regex: "San Francisco|Bay Area|Palo Alto|Mountain View|Oakland|San Jose|Sunnyvale|Redwood City|Remote.*US"
+  reject-regex: "Remote \\(non-US\\)"
+  visa-regex: "no sponsorship|not able to sponsor|must be authorized to work.*without sponsorship|US citizen.*required|TS/SCI|security clearance"
+  title-allow: [engineer, developer, architect, sre, infrastructure, platform, backend]
+  title-deny: [intern, manager, director, recruiter, sales, marketing, principal designer]
+  llm-url: ${LLM_URL:http://localhost:11434}
+  model: ${LLM_MODEL:qwen2.5:14b}
+  discord-webhook: ${DISCORD_WEBHOOK:}

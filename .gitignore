@@ -1,0 +1,21 @@
+# Build output
+build/
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Runtime state — regenerated, machine-local
+seen.txt
+
+# Personal / secrets — never commit
+resume.txt
+*.env
+.env
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# OS
+.DS_Store
