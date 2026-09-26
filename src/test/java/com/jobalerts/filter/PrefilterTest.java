@@ -19,6 +19,11 @@ class PrefilterTest {
     @Test
     void rejectsByTitleLocationVisaAndPay() {
         assertFalse(f.keep(job("Engineering Manager", "San Francisco", "$300,000")), "denied title");
+        assertFalse(f.keep(job("Software Engineer Intern", "San Francisco", "")), "denied word");
+        assertTrue(f.keep(job("Software Engineer, Internal Tools", "San Francisco", "")), "whole-word deny");
+        assertFalse(f.keep(job("Senior Staff Software Engineer", "San Francisco", "")), "level above");
+        assertTrue(f.keep(job("Staff Software Engineer", "San Francisco", "")), "phrase, not single words");
+        assertFalse(f.keep(job("Senior Software Engineer, Android", "San Francisco", "")), "stack not on resume");
         assertFalse(f.keep(job("Backend Engineer", "Austin, TX", "$300,000")), "wrong metro");
         assertFalse(f.keep(job("Backend Engineer", "San Francisco", "security clearance required")), "visa");
         assertFalse(f.keep(job("Backend Engineer", "San Francisco", "$120,000 - $150,000")), "below floor");

@@ -5,6 +5,7 @@ build/
 
 # Runtime state — regenerated, machine-local
 seen.txt
+scores.jsonl
 
 # Personal / secrets — never commit
 resume.txt

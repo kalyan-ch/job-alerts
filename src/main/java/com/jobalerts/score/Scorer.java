@@ -3,6 +3,7 @@ package com.jobalerts.score;
 import com.jobalerts.config.Props;
 import com.jobalerts.domain.Job;
 import com.jobalerts.domain.Scored;
+import com.jobalerts.store.ScoreCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -16,14 +17,20 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /** Scores jobs against the resume with a local OpenAI-compatible LLM (Ollama, LM Studio, llama.cpp, vLLM). */
 @Component
 public class Scorer {
     private static final Logger log = LoggerFactory.getLogger(Scorer.class);
-    private static final int BATCH = 5;          // local models hold shorter context than a hosted one
-    private static final int DESC_CHARS = 2000;
+    private static final int BATCH = 8;          // 8 x 1.5k-char descriptions + resume fits omlx's 32k context
+    private static final int DESC_CHARS = 1500;
+    // omlx's max_concurrent_requests is 8; going past it only queues on the server side.
+    private static final int PARALLEL = 8;
+    private static final int MAX_TOKENS = 1300;  // ~8 short results; stops a rambling model eating minutes
     private static final JsonMapper JSON = new JsonMapper();
 
     private static final Map<String, Object> SCHEMA = Map.of(
@@ -44,26 +51,54 @@ public class Scorer {
 
     private final RestClient http;
     private final Props p;
+    private final ScoreCache cache;
     private final String resume;
 
-    Scorer(Props p) throws IOException {
+    Scorer(Props p, ScoreCache cache) throws IOException {
         this.p = p;
+        this.cache = cache;
         this.resume = Files.readString(p.resumeFile());
-        this.http = RestClient.builder().baseUrl(p.llmUrl()).build();
+        this.http = RestClient.builder().baseUrl(p.llmUrl())
+                .defaultHeader("Authorization", "Bearer " + p.llmKey()).build();
     }
 
-    public List<Scored> score(List<Job> jobs) {
+    public List<Scored> score(List<Job> all) {
         var out = new ArrayList<Scored>();
-        for (int i = 0; i < jobs.size(); i += BATCH) {
-            var batch = jobs.subList(i, Math.min(i + BATCH, jobs.size()));
-            try {
-                out.addAll(scoreBatch(batch));
-            } catch (Exception e) {
-                log.warn("scoring batch failed: {}", e.toString());
+        var jobs = new ArrayList<Job>();
+        for (Job j : all) {
+            var hit = cache.get(j.id());
+            if (hit != null) out.add(hit); else jobs.add(j);
+        }
+        int batches = (jobs.size() + BATCH - 1) / BATCH;
+        log.info("{} cached, scoring {} jobs in {} batches ({} at a time) with {} at {}",
+                out.size(), jobs.size(), batches, PARALLEL, p.model(), p.llmUrl());
+        var done = new AtomicInteger();
+        List<Future<List<Scored>>> futures;
+        try (var pool = Executors.newFixedThreadPool(PARALLEL)) {
+            futures = new ArrayList<>();
+            for (int i = 0; i < jobs.size(); i += BATCH) {
+                var batch = jobs.subList(i, Math.min(i + BATCH, jobs.size()));
+                futures.add(pool.submit(() -> scoreLogged(batch, done, batches)));
             }
         }
-        log.info("scored {}/{} jobs", out.size(), jobs.size());
+        for (var f : futures) out.addAll(f.resultNow());
+        log.info("have scores for {}/{} jobs", out.size(), all.size());
         return out;
+    }
+
+    private List<Scored> scoreLogged(List<Job> batch, AtomicInteger done, int batches) {
+        long t = System.currentTimeMillis();
+        try {
+            var scored = scoreBatch(batch);
+            cache.add(scored);
+            log.info("batch {}/{}: {}/{} scored in {}s", done.incrementAndGet(), batches, scored.size(), batch.size(),
+                    (System.currentTimeMillis() - t) / 1000);
+            scored.forEach(s -> log.info("  {} · {} — {} ({})", s.score(), s.job().company(), s.job().title(), s.reason()));
+            return scored;
+        } catch (Exception e) {
+            log.warn("batch {}/{} failed: {}", done.incrementAndGet(), batches, e.toString());
+            return List.of();
+        }
     }
 
     private List<Scored> scoreBatch(List<Job> batch) {
@@ -71,12 +106,19 @@ public class Scorer {
         var body = Map.of(
                 "model", p.model(),
                 "temperature", 0,
+                "max_tokens", MAX_TOKENS,
                 "stream", false,
                 "response_format", Map.of("type", "json_schema",
                         "json_schema", Map.of("name", "job_scores", "strict", true, "schema", SCHEMA)),
                 "messages", List.of(
                         Map.of("role", "system", "content",
                                 "Rate how well each job matches the candidate's resume. Score 0-100. "
+                                        + "The candidate targets Senior or Staff level only. Score below 40 if the role's level "
+                                        + "is above that (Senior Staff, Principal, L7+, Distinguished) or below it (junior, new grad, "
+                                        + "SDE I, L3/L4). Level fit matters more than topic overlap. "
+                                        + "Score below 40 if the role's core platform or language (e.g. Android, iOS, embedded, "
+                                        + "a specific stack) does not appear in the resume; generic skills like 'distributed "
+                                        + "systems' or 'AI' do not make up for a missing core stack. "
                                         + "Set visaRisk true if the posting implies citizenship, clearance, or no sponsorship. "
                                         + "reason is one short line. Return one result per job id, JSON only.\n\nRESUME:\n" + resume),
                         Map.of("role", "user", "content", prompt(batch))));

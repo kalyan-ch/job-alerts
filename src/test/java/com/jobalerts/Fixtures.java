@@ -10,11 +10,11 @@ import java.util.List;
 public final class Fixtures {
 
     public static final Props PROPS = new Props(
-            Path.of("seen.txt"), Path.of("resume.txt"), 70, 180_000, 10,
+            Path.of("seen.txt"), Path.of("scores.jsonl"), Path.of("resume.txt"), 70, 180_000, 10,
             "San Francisco|Bay Area|Remote.*US", "Remote \\(non-US\\)",
             "no sponsorship|security clearance",
-            List.of("engineer"), List.of("intern", "manager"),
-            "http://localhost:11434", "test-model", "");
+            List.of("engineer"), List.of("intern", "manager", "senior staff", "android"),
+            "http://localhost:8000", "", "test-model", "");
 
     public static Job job(String title, String location, String description) {
         return new Job("id", "co", title, location, "https://example.com/apply", description, null);

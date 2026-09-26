@@ -93,7 +93,6 @@ companies:
   - { board: ashby, slug: cursor }   # 122 jobs
   - { board: greenhouse, slug: gleanwork }   # 123 jobs
   - { board: greenhouse, slug: togetherai }   # 78 jobs
-  - { board: greenhouse, slug: andurilindustries }   # 2374 jobs
   - { board: greenhouse, slug: sourcegraph91 }   # 7 jobs
   - { board: lever, slug: neon }   # 12 jobs
   - { board: greenhouse, slug: doordashusa }   # 462 jobs
@@ -108,7 +107,6 @@ companies:
   - { board: greenhouse, slug: eventbriteinc }   # 1 jobs
   - { board: greenhouse, slug: wizinc }   # 136 jobs
   # Added 2026-09-18 — larger-cap names that do use these boards.
-  - { board: lever, slug: palantir }   # 313 jobs
   - { board: lever, slug: spotify }   # 71 jobs
   - { board: greenhouse, slug: lucidmotors }   # 401 jobs
   - { board: greenhouse, slug: zscaler }   # 370 jobs
@@ -124,8 +122,16 @@ companies:
   # Workday — big tech runs no Greenhouse/Lever/Ashby board. Slug is
   # tenant/wdN/site/searchText; the search term is required because these
   # tenants hold 300-2000 jobs each. See WorkdayBoard.
-  - { board: workday, slug: "nvidia/wd5/NVIDIAExternalCareerSite/backend engineer" }        # 132 matches
-  - { board: workday, slug: "ebay/wd5/apply/backend engineer" }                             # 71 matches
-  - { board: workday, slug: "adobe/wd5/external_experienced/backend engineer" }             # 64 matches
-  - { board: workday, slug: "salesforce/wd12/External_Career_Site/backend engineer" }       # 43 matches
-  - { board: workday, slug: "paypal/wd1/jobs/backend engineer" }                            # 15 matches
+  - { board: workday, slug: "nvidia/wd5/NVIDIAExternalCareerSite/software engineer" }        # 132 matches
+  - { board: workday, slug: "ebay/wd5/apply/software engineer" }                             # 71 matches
+  - { board: workday, slug: "adobe/wd5/external_experienced/software engineer" }             # 64 matches
+  - { board: workday, slug: "salesforce/wd12/External_Career_Site/software engineer" }       # 43 matches
+  - { board: workday, slug: "paypal/wd1/jobs/software engineer" }                            # 15 matches
+
+  # Own career sites. Slug is the site's search query string; the board adds paging.
+  - { board: amazon, slug: "base_query=software engineer&normalized_country_code[]=USA&normalized_state_name[]=California" }  # 330 matches
+  - { board: netflix, slug: "query=software engineer" }                                     # 169 matches, all locations
+
+  # Scraped HTML — no API. Breaks on a site redesign; shows as "fetch failed" in the log. See ScrapeTest.
+  - { board: google, slug: "q=software engineer&location=California, USA" }                 # 727 matches
+  - { board: apple, slug: "location=san-francisco-bay-area-SFMETRO&team=apps-and-frameworks-SFTWR-AF+cloud-and-infrastructure-SFTWR-CLD+core-operating-systems-SFTWR-COS+devops-and-site-reliability-SFTWR-DSR+information-systems-and-technology-SFTWR-ISTECH" }

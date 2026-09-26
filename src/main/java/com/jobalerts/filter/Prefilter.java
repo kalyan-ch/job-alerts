@@ -14,13 +14,16 @@ public class Prefilter {
     private static final Pattern PAY = Pattern.compile("\\$\\s?(\\d{2,3}),?(\\d{3})");
 
     private final Props p;
-    private final Pattern location, reject, visa;
+    private final Pattern location, reject, visa, deny;
 
     public Prefilter(Props p) {
         this.p = p;
         this.location = ci(p.locationRegex());
         this.reject = ci(p.rejectRegex());
         this.visa = ci(p.visaRegex());
+        // Whole words, so "intern" doesn't drop "Internal Tools" and "ml" doesn't drop "HTML".
+        this.deny = p.titleDeny().isEmpty() ? null : ci("\\b(" + String.join("|",
+                p.titleDeny().stream().map(Pattern::quote).toList()) + ")\\b");
     }
 
     private static Pattern ci(String re) { return Pattern.compile(re, Pattern.CASE_INSENSITIVE); }
@@ -37,8 +40,8 @@ public class Prefilter {
     }
 
     private boolean titleOk(String title) {
+        if (deny != null && deny.matcher(title).find()) return false;
         String t = title.toLowerCase();
-        if (p.titleDeny().stream().anyMatch(t::contains)) return false;
         return p.titleAllow().isEmpty() || p.titleAllow().stream().anyMatch(t::contains);
     }
 

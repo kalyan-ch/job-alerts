@@ -8,6 +8,7 @@ import java.util.List;
 @ConfigurationProperties("jobalerts")
 public record Props(
         Path seenFile,
+        Path scoresFile,
         Path resumeFile,
         int minScore,
         long payFloor,
@@ -18,5 +19,6 @@ public record Props(
         List<String> titleAllow,
         List<String> titleDeny,
         String llmUrl,
+        String llmKey,
         String model,
         String discordWebhook) {}

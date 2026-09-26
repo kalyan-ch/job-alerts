@@ -23,7 +23,10 @@ public class Discord {
     Discord(Props p) { this.p = p; }
 
     public void send(List<Scored> top) {
-        if (top.isEmpty()) return;   // silence is signal
+        if (top.isEmpty()) {   // silence is signal
+            log.info("nothing above threshold, not sending");
+            return;
+        }
         for (String chunk : chunks(top)) {
             http.post().uri(p.discordWebhook())
                     .contentType(MediaType.APPLICATION_JSON)

@@ -2,10 +2,11 @@ spring:
   main.web-application-type: none
   config.import:
     - optional:file:companies.yml
-    - optional:file:${user.home}/.job-alerts.env[.properties]
+    - optional:file:./secrets.env[.properties]
 
 jobalerts:
   seen-file: seen.txt
+  scores-file: scores.jsonl
   resume-file: resume.txt
   min-score: 70
   pay-floor: 180000
@@ -13,8 +14,19 @@ jobalerts:
   location-regex: "San Francisco|Bay Area|Palo Alto|Mountain View|Oakland|San Jose|Sunnyvale|Redwood City|Remote.*US"
   reject-regex: "Remote \\(non-US\\)"
   visa-regex: "no sponsorship|not able to sponsor|must be authorized to work.*without sponsorship|US citizen.*required|TS/SCI|security clearance"
-  title-allow: [engineer, developer, architect, sre, infrastructure, platform, backend]
-  title-deny: [intern, manager, director, recruiter, sales, marketing, principal designer]
-  llm-url: ${LLM_URL:http://localhost:11434}
-  model: ${LLM_MODEL:qwen2.5:14b}
+  # substring match on lowercased title; no seniority terms, so every level passes
+  title-allow: [software engineer, software developer, backend engineer, frontend engineer, front end engineer,
+                full stack, full-stack, fullstack, platform engineer, infrastructure engineer, site reliability,
+                product engineer, member of technical staff]
+  # whole-word match, so "intern" keeps "Internal Tools"
+  title-deny: [intern, internship, manager, director, recruiter,
+               machine learning, ml, ai/ml, mlops, data, security,
+               # stacks not on the resume
+               android, ios, mobile, embedded, firmware, hardware,
+               # levels outside senior/staff; titles with no level word still pass to the scorer
+               senior staff, principal, distinguished, fellow,
+               junior, new grad, early career, entry level, entry-level]
+  llm-url: ${LLM_URL:http://localhost:8000}
+  llm-key: ${LLM_API_KEY:}
+  model: ${LLM_MODEL:DeepSeek-Coder-V2-Lite-Instruct-4bit-mlx}
   discord-webhook: ${DISCORD_WEBHOOK:}
