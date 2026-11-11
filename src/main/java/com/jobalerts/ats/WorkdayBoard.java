@@ -1,9 +1,8 @@
 package com.jobalerts.ats;
 
 import com.jobalerts.domain.Job;
+import com.jobalerts.filter.Prefilter;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClient;
-import tools.jackson.databind.JsonNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,14 +20,19 @@ import java.util.Map;
 @Component
 public class WorkdayBoard implements Board {
     private static final int PAGE = 20;      // the API silently returns nothing above this
-    private static final int MAX_JOBS = 60;  // 60 jobs = 63 requests; the prefilter drops most anyway
+    private static final int MAX_JOBS = 60;  // list positions scanned; only ones passing listingOk cost a detail call
 
-    private final RestClient client = RestClient.create();
+    private final Http http;
+    private final Prefilter filter;
+
+    WorkdayBoard(Http http, Prefilter filter) { this.http = http; this.filter = filter; }
 
     @Override public String name() { return "workday"; }
 
+    /** synchronized: tenants run one at a time. All of *.myworkdayjobs.com sits behind one Cloudflare,
+     *  and ~20 tenants x 63 requests in parallel gets the IP served a 429 "Security Check" page. */
     @Override
-    public List<Job> fetch(String slug) {
+    public synchronized List<Job> fetch(String slug) {
         var parts = slug.split("/", 4);
         if (parts.length != 4) throw new IllegalArgumentException(
                 "workday slug must be tenant/wdN/site/searchText, got: " + slug);
@@ -37,9 +41,11 @@ public class WorkdayBoard implements Board {
 
         var jobs = new ArrayList<Job>();
         for (int offset = 0; offset < MAX_JOBS; offset += PAGE) {
-            var page = post(base + "/jobs", Map.of("limit", PAGE, "offset", offset, "searchText", parts[3]))
+            var page = http.post(base + "/jobs", Map.of("limit", PAGE, "offset", offset, "searchText", parts[3]))
                     .path("jobPostings");
-            for (var p : page) jobs.add(detail(base, tenant, p.path("externalPath").asString("")));
+            for (var p : page)
+                if (filter.listingOk(p.path("title").asString(""), p.path("locationsText").asString("")))
+                    jobs.add(detail(base, tenant, p.path("externalPath").asString("")));
             if (page.size() < PAGE) break;
         }
         return jobs;
@@ -48,7 +54,7 @@ public class WorkdayBoard implements Board {
     /** The list endpoint gives title and path only — description and real date live here.
      *  {@code externalPath} already starts with "/job"; appending another gives a 422. */
     private Job detail(String base, String tenant, String path) {
-        var info = client.get().uri(base + path).retrieve().body(JsonNode.class).path("jobPostingInfo");
+        var info = http.get(base + path).path("jobPostingInfo");
         return new Job(
                 "wd:" + tenant + ":" + info.path("jobReqId").asString(),
                 tenant,
@@ -57,9 +63,5 @@ public class WorkdayBoard implements Board {
                 info.path("externalUrl").asString(""),
                 Http.plain(info.path("jobDescription").asString("")),
                 Http.instant(info.path("startDate").asString("") + "T00:00:00Z"));
-    }
-
-    private JsonNode post(String url, Map<String, Object> body) {
-        return client.post().uri(url).body(body).retrieve().body(JsonNode.class);
     }
 }

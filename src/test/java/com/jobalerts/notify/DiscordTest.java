@@ -18,14 +18,14 @@ class DiscordTest {
 
     @Test
     void messageCarriesTitleCompanyScoreAndLink() {
-        String out = Discord.format(new Scored(job("Staff Engineer", "SF", "d"), 91, "", false));
+        String out = Discord.format(new Scored(job("Staff Engineer", "SF", "d"), 91, "", "unknown"));
         assertEquals("**Staff Engineer** — co · 91\nhttps://example.com/apply\n\n", out);
     }
 
     @Test
     void splitsMessagesOnJobBoundaries() {
         var many = IntStream.range(0, 12)
-                .mapToObj(i -> new Scored(job("Staff Engineer " + "x".repeat(200) + i, "SF", "d"), 90, "", false))
+                .mapToObj(i -> new Scored(job("Staff Engineer " + "x".repeat(200) + i, "SF", "d"), 90, "", "unknown"))
                 .toList();
         var chunks = Discord.chunks(many);
         assertTrue(chunks.size() > 1, "should split past the 2000-char cap");

@@ -32,15 +32,19 @@ public class Http {
         return retry(() -> client.get().uri(url).retrieve().body(JsonNode.class), BACKOFF);
     }
 
+    public JsonNode post(String url, Object body) {
+        return retry(() -> client.post().uri(url).body(body).retrieve().body(JsonNode.class), BACKOFF);
+    }
+
     /** Raw page body, for the boards that scrape HTML. */
     public String text(String url) {
         return retry(() -> client.get().uri(url).retrieve().body(String.class), BACKOFF);
     }
 
-    private static final Duration BACKOFF = Duration.ofSeconds(10);
+    public static final Duration BACKOFF = Duration.ofSeconds(10);
 
     /** On 429 wait base, 2x, 4x and retry; sites throttle bursts, not steady traffic. */
-    static <T> T retry(Supplier<T> call, Duration base) {
+    public static <T> T retry(Supplier<T> call, Duration base) {
         for (int i = 0; ; i++) {
             try {
                 return call.get();

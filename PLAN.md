@@ -104,7 +104,8 @@ job-alerts/
   resume.txt
   src/main/java/.../
     JobAlertsApplication.java
-    DailyJob.java            @Scheduled, wires the layers below
+    Runs.java                pipeline runs (10pm @Scheduled + POST /api/runs), tracked in runs table
+    RunsController.java      /api/runs
     config/                  Props, Boards          (binds application.yml + companies.yml)
     domain/                  Job, Scored            (records, no behaviour)
     ats/                     Board (interface), Greenhouse/Lever/AshbyBoard,

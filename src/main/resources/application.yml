@@ -1,32 +1,45 @@
 spring:
-  main.web-application-type: none
   config.import:
     - optional:file:companies.yml
     - optional:file:./secrets.env[.properties]
+  # docker-compose.yml runs it: docker compose up -d
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/jobalerts}
+    username: ${DB_USER:jobalerts}
+    password: ${DB_PASSWORD:jobalerts}
+  sql.init.mode: always   # runs schema.sql (CREATE TABLE IF NOT EXISTS) on every start
+
+server:
+  port: 8080
+  address: 127.0.0.1   # /api/runs spends LLM time and posts to Discord; keep it off the LAN
 
 jobalerts:
-  seen-file: seen.txt
-  scores-file: scores.jsonl
   resume-file: resume.txt
   min-score: 70
   pay-floor: 180000
-  max-jobs: 10
-  location-regex: "San Francisco|Bay Area|Palo Alto|Mountain View|Oakland|San Jose|Sunnyvale|Redwood City|Remote.*US"
+  max-jobs: 100   # per day, posted in the last 24h
+  max-age-days: 30   # by posted_at; older jobs never reach the table
+  # Case-insensitive, location field only. "san" is loose on purpose: also catches San Diego, Santa Monica.
+  # Remote only when the location names the US (or is just "Remote"): "Remote Canada", "Poland - Remote" stay out.
+  location-regex: "sunnyvale|san|mount|bay area|palo alto|oakland|redwood city|los gatos|remote[^;]{0,30}\\b(us|usa|united states)\\b|\\b(us|usa|united states)\\b[^;]{0,30}remote|^\\s*remote\\s*$"
   reject-regex: "Remote \\(non-US\\)"
-  visa-regex: "no sponsorship|not able to sponsor|must be authorized to work.*without sponsorship|US citizen.*required|TS/SCI|security clearance"
+  visa-regex: "no sponsorship|not able to sponsor|must be authorized to work.*without sponsorship|us citizen|TS/SCI|security clearance"
   # substring match on lowercased title; no seniority terms, so every level passes
-  title-allow: [software engineer, software developer, backend engineer, frontend engineer, front end engineer,
-                full stack, full-stack, fullstack, platform engineer, infrastructure engineer, site reliability,
-                product engineer, member of technical staff]
+  title-allow: [software]
   # whole-word match, so "intern" keeps "Internal Tools"
   title-deny: [intern, internship, manager, director, recruiter,
                machine learning, ml, ai/ml, mlops, data, security,
                # stacks not on the resume
                android, ios, mobile, embedded, firmware, hardware,
                # levels outside senior/staff; titles with no level word still pass to the scorer
-               senior staff, principal, distinguished, fellow,
+               senior staff, sr. staff, sr staff, principal, distinguished, fellow,
                junior, new grad, early career, entry level, entry-level]
   llm-url: ${LLM_URL:http://localhost:8000}
   llm-key: ${LLM_API_KEY:}
   model: ${LLM_MODEL:DeepSeek-Coder-V2-Lite-Instruct-4bit-mlx}
   discord-webhook: ${DISCORD_WEBHOOK:}
+  # Second scorer, for comparison only: never changes what reaches Discord. Run it with the score-claude step.
+  claude:
+    api-key: ${ANTHROPIC_API_KEY:}      # from platform.claude.com; a Claude.ai chat plan doesn't include API use
+    model: ${CLAUDE_MODEL:claude-opus-5-5}
+    max-jobs: ${CLAUDE_MAX_JOBS:1000}   # per run, newest first; caps spend

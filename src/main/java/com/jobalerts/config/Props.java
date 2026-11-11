@@ -7,12 +7,11 @@ import java.util.List;
 
 @ConfigurationProperties("jobalerts")
 public record Props(
-        Path seenFile,
-        Path scoresFile,
         Path resumeFile,
         int minScore,
         long payFloor,
         int maxJobs,
+        int maxAgeDays,
         String locationRegex,
         String rejectRegex,
         String visaRegex,

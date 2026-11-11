@@ -1,6 +1,7 @@
 package com.jobalerts.ats;
 
 import com.jobalerts.domain.Job;
+import com.jobalerts.filter.Prefilter;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -22,8 +23,9 @@ public class NetflixBoard implements Board {
     private static final Duration GAP = Duration.ofMillis(500);
 
     private final Http http;
+    private final Prefilter filter;
 
-    NetflixBoard(Http http) { this.http = http; }
+    NetflixBoard(Http http, Prefilter filter) { this.http = http; this.filter = filter; }
 
     @Override public String name() { return "netflix"; }
 
@@ -34,6 +36,7 @@ public class NetflixBoard implements Board {
             var page = http.get(BASE + "?domain=netflix.com&" + slug + "&start=" + start + "&num=" + PAGE)
                     .path("positions");
             for (var p : page) {
+                if (!filter.listingOk(p.path("name").asString(""), p.path("location").asString(""))) continue;
                 Http.pause(GAP);   // ~170 detail calls back to back trips their 429
                 var d = http.get(BASE + "/" + p.path("id").asString() + "?domain=netflix.com");
                 jobs.add(new Job(

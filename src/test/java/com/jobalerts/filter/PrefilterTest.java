@@ -1,6 +1,10 @@
 package com.jobalerts.filter;
 
+import com.jobalerts.domain.Job;
 import org.junit.jupiter.api.Test;
+
+import java.time.Duration;
+import java.time.Instant;
 
 import static com.jobalerts.Fixtures.PROPS;
 import static com.jobalerts.Fixtures.job;
@@ -31,8 +35,25 @@ class PrefilterTest {
     }
 
     @Test
+    void dropsJobsPostedBeforeMaxAge() {
+        var old = new Job("id", "co", "Backend Engineer", "San Francisco", "u", "", Instant.now().minus(Duration.ofDays(31)));
+        var fresh = new Job("id", "co", "Backend Engineer", "San Francisco", "u", "", Instant.now().minus(Duration.ofDays(29)));
+        assertFalse(f.keep(old));
+        assertTrue(f.keep(fresh));
+        assertFalse(f.keep(job("Backend Engineer", "Austin, TX", "based in San Francisco")), "location field only");
+    }
+
+    @Test
     void passesWhenNoPayDisclosed() {
         assertTrue(f.payOk("no numbers here"));
         assertTrue(f.payOk("$150,000 base plus $220,000 total"), "keeps on the max of the range");
+    }
+
+    @Test
+    void listingOkLetsMultiLocationThroughForTheDetailCall() {
+        assertTrue(f.listingOk("Backend Engineer", "2 Locations"));
+        assertTrue(f.listingOk("Backend Engineer", "San Francisco, CA"));
+        assertFalse(f.listingOk("Backend Engineer", "Israel, Yokneam"), "location");
+        assertFalse(f.listingOk("Engineering Manager", "San Francisco, CA"), "title");
     }
 }

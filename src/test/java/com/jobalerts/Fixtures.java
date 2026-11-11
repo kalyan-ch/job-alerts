@@ -10,7 +10,7 @@ import java.util.List;
 public final class Fixtures {
 
     public static final Props PROPS = new Props(
-            Path.of("seen.txt"), Path.of("scores.jsonl"), Path.of("resume.txt"), 70, 180_000, 10,
+            Path.of("resume.txt"), 70, 180_000, 10, 30,
             "San Francisco|Bay Area|Remote.*US", "Remote \\(non-US\\)",
             "no sponsorship|security clearance",
             List.of("engineer"), List.of("intern", "manager", "senior staff", "android"),

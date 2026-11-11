@@ -13,6 +13,7 @@ companies:
   - { board: greenhouse, slug: reddit }   # 156 jobs
   - { board: greenhouse, slug: discord }   # 46 jobs
   - { board: greenhouse, slug: figma }   # 152 jobs
+  - { board: greenhouse, slug: braze }   # 152 jobs
   - { board: ashby, slug: notion }   # 128 jobs
   - { board: ashby, slug: linear }   # 32 jobs
   - { board: greenhouse, slug: vercel }   # 84 jobs
@@ -20,7 +21,6 @@ companies:
   - { board: ashby, slug: supabase }   # 59 jobs
   - { board: greenhouse, slug: planetscale }   # 13 jobs
   - { board: greenhouse, slug: cockroachlabs }   # 21 jobs
-  - { board: ashby, slug: confluent }   # 21 jobs
   - { board: ashby, slug: snowflake }   # 345 jobs
   - { board: greenhouse, slug: datadog }   # 453 jobs
   - { board: greenhouse, slug: gitlab }   # 216 jobs
@@ -43,8 +43,8 @@ companies:
   - { board: ashby, slug: prefect }   # 8 jobs
   - { board: ashby, slug: airbyte }   # 13 jobs
   - { board: greenhouse, slug: fivetran }   # 197 jobs
-  - { board: greenhouse, slug: hightouch }   # 83 jobs
-  - { board: greenhouse, slug: amplitude }   # 38 jobs
+  - { board: ashby, slug: hightouch }   # 1 job (moved from greenhouse 2026-10-21)
+  - { board: ashby, slug: amplitude }   # 41 jobs (moved from greenhouse 2026-10-21)
   - { board: greenhouse, slug: mixpanel }   # 87 jobs
   - { board: ashby, slug: posthog }   # 9 jobs
   - { board: ashby, slug: sentry }   # 44 jobs
@@ -78,7 +78,7 @@ companies:
   - { board: greenhouse, slug: nextdoor }   # 21 jobs
   - { board: ashby, slug: patreon }   # 12 jobs
   - { board: ashby, slug: substack }   # 17 jobs
-  - { board: greenhouse, slug: webflow }   # 29 jobs
+  - { board: ashby, slug: webflow }   # 17 jobs (moved from greenhouse 2026-10-21)
   - { board: ashby, slug: miro }   # 28 jobs
   - { board: ashby, slug: vanta }   # 93 jobs
   - { board: ashby, slug: drata }   # 39 jobs
@@ -119,6 +119,124 @@ companies:
   - { board: greenhouse, slug: coursera }   # 17 jobs
   - { board: greenhouse, slug: udemy }   # 7 jobs
 
+  # Added 2026-10-21, verified live.
+  - { board: greenhouse, slug: xai }   # 300 jobs
+  - { board: greenhouse, slug: purestorage }   # 369 jobs
+  - { board: greenhouse, slug: toast }   # 318 jobs
+  - { board: greenhouse, slug: sentinellabs }   # 267 jobs (SentinelOne)
+  - { board: greenhouse, slug: tripactions }   # 219 jobs (Navan)
+  - { board: greenhouse, slug: klaviyo }   # 163 jobs
+  - { board: greenhouse, slug: rubrik }   # 146 jobs
+  - { board: greenhouse, slug: grafanalabs }   # 145 jobs
+  - { board: greenhouse, slug: addepar1 }   # 111 jobs
+  - { board: greenhouse, slug: intercom }   # 106 jobs
+  - { board: greenhouse, slug: figureai }   # 100 jobs
+  - { board: greenhouse, slug: ripple }   # 98 jobs
+  - { board: greenhouse, slug: upstart }   # 92 jobs
+  - { board: greenhouse, slug: gongio }   # 90 jobs
+  - { board: greenhouse, slug: smartsheet }   # 90 jobs
+  - { board: greenhouse, slug: abnormalsecurity }   # 86 jobs
+  - { board: greenhouse, slug: motional }   # 84 jobs
+  - { board: greenhouse, slug: oura }   # 82 jobs
+  - { board: greenhouse, slug: cribl }   # 81 jobs
+  - { board: greenhouse, slug: chainguard }   # 80 jobs
+  - { board: greenhouse, slug: sigmacomputing }   # 77 jobs
+  - { board: greenhouse, slug: harnessinc }   # 67 jobs
+  - { board: greenhouse, slug: sambanovasystems }   # 61 jobs
+  - { board: greenhouse, slug: neo4j }   # 60 jobs
+  - { board: greenhouse, slug: newrelic }   # 57 jobs
+  - { board: greenhouse, slug: twitch }   # 56 jobs
+  - { board: greenhouse, slug: pagerduty }   # 54 jobs
+  - { board: greenhouse, slug: snorkelai }   # 46 jobs
+  - { board: greenhouse, slug: singlestore }   # 39 jobs
+  - { board: greenhouse, slug: seatgeek }   # 38 jobs
+  - { board: greenhouse, slug: algolia }   # 34 jobs
+  - { board: greenhouse, slug: lucidsoftware }   # 32 jobs
+  - { board: greenhouse, slug: gemini }   # 30 jobs
+  - { board: greenhouse, slug: attentive }   # 28 jobs
+  - { board: greenhouse, slug: honeycomb }   # 24 jobs
+  - { board: greenhouse, slug: contentful }   # 24 jobs
+  - { board: greenhouse, slug: komodohealth }   # 23 jobs
+  - { board: greenhouse, slug: circleci }   # 15 jobs
+  - { board: greenhouse, slug: yugabyte }   # 14 jobs
+  - { board: greenhouse, slug: couchbaseinc }   # 13 jobs
+  - { board: greenhouse, slug: sumologic }   # 12 jobs
+  - { board: greenhouse, slug: descript }   # 10 jobs
+  - { board: greenhouse, slug: calendly }   # 9 jobs
+  - { board: greenhouse, slug: lattice }   # 8 jobs
+  - { board: ashby, slug: crusoe }   # 344 jobs
+  - { board: ashby, slug: wayve }   # 176 jobs (mostly London)
+  - { board: ashby, slug: elevenlabs }   # 160 jobs
+  - { board: ashby, slug: decagon }   # 134 jobs
+  - { board: ashby, slug: cerebras }   # 123 jobs
+  - { board: ashby, slug: mercor }   # 111 jobs
+  - { board: ashby, slug: cognition }   # 105 jobs
+  - { board: ashby, slug: baseten }   # 103 jobs
+  - { board: ashby, slug: lambda }   # 98 jobs
+  - { board: ashby, slug: fireworks }   # 91 jobs
+  - { board: ashby, slug: kong }   # 87 jobs
+  - { board: ashby, slug: kraken.com }   # 84 jobs
+  - { board: ashby, slug: 1password }   # 77 jobs
+  - { board: ashby, slug: claylabs }   # 60 jobs
+  - { board: ashby, slug: chainalysis-careers }   # 47 jobs
+  - { board: ashby, slug: sardine }   # 46 jobs
+  - { board: ashby, slug: clickup }   # 45 jobs
+  - { board: ashby, slug: physicalintelligence }   # 44 jobs
+  - { board: ashby, slug: abridge }   # 40 jobs
+  - { board: ashby, slug: hex }   # 39 jobs
+  - { board: ashby, slug: watershed }   # 39 jobs
+  - { board: ashby, slug: sanity }   # 34 jobs
+  - { board: ashby, slug: ironcladhq }   # 33 jobs
+  - { board: ashby, slug: strava }   # 32 jobs
+  - { board: ashby, slug: snyk }   # 30 jobs
+  - { board: ashby, slug: goteleport }   # 25 jobs
+  - { board: ashby, slug: alchemy }   # 22 jobs
+  - { board: ashby, slug: persona }   # 13 jobs
+  - { board: ashby, slug: zapier }   # 13 jobs
+  - { board: lever, slug: palantir }   # 304 jobs
+  - { board: lever, slug: outreach }   # 25 jobs
+  - { board: lever, slug: wealthfront }   # 23 jobs
+  # Added 2026-11-01 via probe.sh; skipped wise (a different company) and circle (unclear owner).
+  - { board: greenhouse, slug: spacex }   # 2874 jobs
+  - { board: greenhouse, slug: relativity }   # 410 jobs
+  - { board: greenhouse, slug: celonis }   # 235 jobs
+  - { board: greenhouse, slug: oscar }   # 214 jobs
+  - { board: greenhouse, slug: astranis }   # 185 jobs
+  - { board: greenhouse, slug: scopely }   # 178 jobs
+  - { board: greenhouse, slug: gomotive }   # 166 jobs
+  - { board: greenhouse, slug: tenstorrent }   # 126 jobs
+  - { board: greenhouse, slug: planetlabs }   # 124 jobs
+  - { board: greenhouse, slug: netskope }   # 120 jobs
+  - { board: greenhouse, slug: zoominfo }   # 99 jobs
+  - { board: greenhouse, slug: tanium }   # 64 jobs
+  - { board: greenhouse, slug: monzo }   # 63 jobs
+  - { board: greenhouse, slug: lightmatter }   # 58 jobs
+  - { board: greenhouse, slug: billcom }   # 43 jobs
+  - { board: greenhouse, slug: freenome }   # 34 jobs
+  - { board: greenhouse, slug: salesloft }   # 32 jobs
+  - { board: greenhouse, slug: earnin }   # 31 jobs
+  - { board: greenhouse, slug: squarespace }   # 27 jobs
+  - { board: greenhouse, slug: fireblocks }   # 26 jobs
+  - { board: greenhouse, slug: omadahealth }   # 18 jobs
+  - { board: greenhouse, slug: pagaya }   # 15 jobs
+  - { board: greenhouse, slug: blend }   # 14 jobs
+  - { board: greenhouse, slug: consensys }   # 13 jobs
+  - { board: greenhouse, slug: dialpad }   # 12 jobs
+  - { board: greenhouse, slug: warp }   # 5 jobs
+  - { board: ashby, slug: saronic }   # 255 jobs
+  - { board: ashby, slug: etched }   # 123 jobs
+  - { board: ashby, slug: nubank }   # 101 jobs
+  - { board: ashby, slug: workos }   # 28 jobs
+  - { board: ashby, slug: insitro }   # 14 jobs
+  - { board: ashby, slug: moderntreasury }   # 9 jobs
+  - { board: ashby, slug: quora }   # 9 jobs
+  - { board: ashby, slug: dave }   # 7 jobs
+  - { board: ashby, slug: expensify }   # 3 jobs
+  - { board: ashby, slug: clerk }   # 2 jobs
+  - { board: ashby, slug: mux }   # 1 jobs
+  - { board: lever, slug: shieldai }   # 656 jobs
+  - { board: lever, slug: includedhealth }   # 48 jobs
+
   # Workday — big tech runs no Greenhouse/Lever/Ashby board. Slug is
   # tenant/wdN/site/searchText; the search term is required because these
   # tenants hold 300-2000 jobs each. See WorkdayBoard.
@@ -127,6 +245,23 @@ companies:
   - { board: workday, slug: "adobe/wd5/external_experienced/software engineer" }             # 64 matches
   - { board: workday, slug: "salesforce/wd12/External_Career_Site/software engineer" }       # 43 matches
   - { board: workday, slug: "paypal/wd1/jobs/software engineer" }                            # 15 matches
+  # Added 2026-10-21. Up to 63 requests per tenant per run; trim if runs get slow.
+  - { board: workday, slug: "cisco/wd5/Cisco_Careers/software engineer" }              # 731 matches
+  - { board: workday, slug: "kla/wd1/Search/software engineer" }                       # 501 matches
+  - { board: workday, slug: "cadence/wd1/External_Careers/software engineer" }         # 378 matches
+  - { board: workday, slug: "intel/wd1/External/software engineer" }                   # 346 matches
+  - { board: workday, slug: "hp/wd5/ExternalCareerSite/software engineer" }            # 334 matches
+  - { board: workday, slug: "marvell/wd1/MarvellCareers/software engineer" }           # 311 matches
+  - { board: workday, slug: "visa/wd5/Visa/software engineer" }                        # 214 matches
+  - { board: workday, slug: "workday/wd5/Workday/software engineer" }                  # 163 matches
+  - { board: workday, slug: "autodesk/wd1/Ext/software engineer" }                     # 133 matches
+  - { board: workday, slug: "broadcom/wd1/External_Career/software engineer" }         # 132 matches
+  - { board: workday, slug: "disney/wd5/disneycareer/software engineer" }              # 131 matches
+  - { board: workday, slug: "crowdstrike/wd5/crowdstrikecareers/software engineer" }   # 128 matches
+  - { board: workday, slug: "redhat/wd5/jobs/software engineer" }                      # 100 matches
+  - { board: workday, slug: "snapchat/wd1/snap/software engineer" }                    # 79 matches
+  - { board: workday, slug: "zillow/wd5/Zillow_Group_External/software engineer" }     # 56 matches
+  - { board: workday, slug: "capitalone/wd12/Capital_One/software engineer" }          # 1101 matches, mostly VA/NY
 
   # Own career sites. Slug is the site's search query string; the board adds paging.
   - { board: amazon, slug: "base_query=software engineer&normalized_country_code[]=USA&normalized_state_name[]=California" }  # 330 matches

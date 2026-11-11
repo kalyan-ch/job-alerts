@@ -9,7 +9,5 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @ConfigurationPropertiesScan
 @EnableScheduling
 public class JobAlertsApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(JobAlertsApplication.class, args);
-    }
+    public static void main(String[] args) { SpringApplication.run(JobAlertsApplication.class, args); }
 }

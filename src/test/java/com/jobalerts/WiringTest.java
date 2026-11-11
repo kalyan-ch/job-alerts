@@ -6,6 +6,7 @@ import com.jobalerts.config.Props;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 
 import java.util.List;
 
@@ -15,16 +16,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Proves the beans wire and companies.yml binds — the parts a unit test can't reach. */
 @SpringBootTest
+@Import(TestDb.class)
 class WiringTest {
 
     @Autowired Boards boards;
     @Autowired Props props;
-    @Autowired DailyJob dailyJob;
+    @Autowired Runs runs;
     @Autowired List<Board> boardImpls;
 
     @Test
     void contextLoadsAndCompaniesBind() {
-        assertNotNull(dailyJob);
+        assertNotNull(runs);
         assertFalse(boards.companies().isEmpty(), "companies.yml should bind");
         assertNotNull(props.locationRegex());
     }

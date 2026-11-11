@@ -30,6 +30,7 @@
   th { color:var(--mut); font-weight:600; }
   td:nth-child(2) { text-align:right; white-space:nowrap; }
   .note { border-left:3px solid var(--acc); padding:.5rem 0 .5rem .85rem; margin:1rem 0; font-size:.92rem; }
+  a { color:var(--acc); }
   code { background:color-mix(in srgb, var(--fg) 8%, transparent); padding:.1em .35em; border-radius:3px; font-size:.87em; }
   ul { padding-left:1.2rem; }
   li { margin:.3rem 0; }
@@ -42,7 +43,8 @@
 <body>
 
 <h1>Interview Plan — Senior to Staff</h1>
-<p class="sub">60 hrs over 10 weeks · 5–8 hrs/wk, evenings · cold start on all four blocks</p>
+<p class="sub">Big tech focus: Meta · Google · Amazon · Netflix · Apple · Microsoft<br>
+  ~158 hrs over 10 weeks · 1 hr/day coding + 1 hr/day system design, behavioral + code quality on top · cold start on all four blocks</p>
 
 <div class="bar">
   <span><b id="done">0</b> / <span id="total">0</span> done</span>
@@ -50,39 +52,52 @@
 </div>
 
 <div class="note">
-  Standard cold-start recommendation is <b>~130 hrs</b> (3 months × 11 hrs/wk). You have ~60. This is a
-  triage plan. The compensating lever is <b>application sequencing</b> — see Week 0.
+  Standard cold-start recommendation is <b>~130 hrs</b> (3 months × 11 hrs/wk). Coding + design alone is 140 here,
+  so hours aren't the constraint — <b>consistency</b> is. Missed days don't roll over; skip them, don't double up.
+  Behavioral + code quality add ~4 hrs/wk in weeks 4–8. <b>Application sequencing</b> still matters — see Week 0.
 </div>
 
 <table>
   <tr><th>Block</th><th>Hrs</th><th>Why</th></tr>
-  <tr><td>Coding</td><td>24</td><td>The gate — fail the screen, nothing else gets used</td></tr>
-  <tr><td>System design</td><td>18</td><td>Vocabulary first, then defense</td></tr>
-  <tr><td>Behavioral</td><td>12</td><td>Sets level, not entry</td></tr>
-  <tr><td>Debug / code review</td><td>6</td><td>Cheap, almost nobody preps it</td></tr>
-  <tr><td>Java/JVM</td><td>0</td><td>Only if targeting Databricks / Confluent / Snowflake</td></tr>
+  <tr><td>Coding</td><td>70</td><td>The gate — fail the screen, nothing else gets used</td></tr>
+  <tr><td>System design</td><td>70</td><td>Decides senior vs staff more than coding does</td></tr>
+  <tr><td>Behavioral</td><td>12</td><td>Sets level, not entry. +6 if Amazon is in scope</td></tr>
+  <tr><td>Code quality / dry-run</td><td>6</td><td>Big tech rounds often don't run your code</td></tr>
 </table>
+
+<h3>Level map — targets aren't the same number everywhere</h3>
+<table>
+  <tr><th>Company</th><th>Senior → Staff</th></tr>
+  <tr><td>Google</td><td>L5 → L6</td></tr>
+  <tr><td>Meta</td><td>E5 → E6</td></tr>
+  <tr><td>Amazon</td><td>L6 SDE III → L7 Principal</td></tr>
+  <tr><td>Microsoft</td><td>63–64 → 65+</td></tr>
+  <tr><td>Apple</td><td>ICT4 → ICT5</td></tr>
+</table>
+<p class="sub">Amazon L6 ≈ Google L5 / Meta E5. Amazon L7 is a bigger jump than E6 — few external L7 hires.
+  Netflix levels are coarse; confirm band with recruiter.</p>
 
 <h2>Week 0 — Admin, before any studying</h2>
 <label><input type="checkbox"> Ask every recruiter <b>in writing, per round</b>: is AI allowed? It's a per-round policy now, not per-company</label>
-<label><input type="checkbox"> Confirm coding language with recruiter if Confluent or Databricks is in scope (language choice has routed candidates to a different track)</label>
+<label><input type="checkbox"> Ask each recruiter: virtual or onsite, and does the coding environment <b>run code</b>? Google has moved some rounds back in person</label>
+<label><input type="checkbox"> Ask Meta recruiter: System Design or Product Architecture round? You may get to choose</label>
 <label><input type="checkbox"> Order the application list by loop style, not prestige (below)</label>
 <label><input type="checkbox"> Decide: rusty vs never-did-it on coding — refresher is ~3 weeks, true cold start is 6–7 months</label>
 
-<h3>Open with these — reward working-engineer skill</h3>
+<h3>Open with these — practice loops</h3>
 <ul>
-  <li><b>Stripe</b> — coding round explicitly not LeetCode (simple IAM, blur card numbers from logs, rate limiter). Bug Bash + Integrations are debugging, not algorithms.</li>
-  <li><b>Ramp</b> — pair-programming screen, own IDE, build a real feature. Silent coding is a negative signal.</li>
-  <li><b>Plaid</b> — rewards correctness and edge cases over clever algorithms.</li>
-  <li><b>Cloudflare</b> — one medium DSA or a practical task. Networking/DNS/TLS weigh more than patterns.</li>
-  <li><b>Palantir</b> — problem decomposition is pseudocode-at-most.</li>
+  <li><b>Microsoft</b> — coding bar more forgiving, varies by org. Final "as appropriate" round with a senior leader.</li>
+  <li><b>Amazon</b> — coding usually LC medium; Leadership Principles decide the loop. Good first loop if stories are ready by week 5.</li>
+  <li><b>Apple</b> — team-run, domain depth over LC volume. Loop tracks the team's actual product.</li>
 </ul>
 
-<h3>Hold these until coding is warm</h3>
+<h3>Hold these until coding is warm (week 6+)</h3>
 <ul>
-  <li><b>Databricks</b> — three coding rounds, "LC hard more than medium", concurrency round rated hardest</li>
-  <li><b>Snowflake</b> — hard LC each with a harder follow-up, plus language-internals probe</li>
-  <li><b>Airbnb</b> — one hard problem per round</li>
+  <li><b>Meta</b> — ~2 mediums per 45-min round. Speed is the filter, not difficulty.</li>
+  <li><b>Google</b> — one problem per round with escalating follow-ups; graphs/DP more common. Packet goes to hiring committee, then team match.
+    <b>Apply early anyway</b> — schedule the screen for week 6+. Team match after HC can take months and
+    sometimes ends with no offer: keep other loops running, don't hold offers waiting on it.</li>
+  <li><b>Netflix</b> — few senior openings, heavy culture rounds, design leans on resilience. Go when stories are polished.</li>
 </ul>
 
 <div class="note">
@@ -90,38 +105,91 @@
   Only ~25% of candidates perform consistently interview to interview. Treat the first wave as paid practice.
 </div>
 
-<h2>Coding — 24 hrs, ~2.5 hrs/wk throughout</h2>
-<p class="sub">Runs in parallel with every other block. Don't batch it.</p>
-<label><input type="checkbox"> Blind 75 — patterns, not problem count</label>
-<label><input type="checkbox"> Arrays / strings (~30% of asks)</label>
-<label><input type="checkbox"> Trees + graphs (~25%) — graph frequency rose on senior tracks 2022–24</label>
-<label><input type="checkbox"> DP (~15%)</label>
-<label><input type="checkbox"> Binary search (~8%), heap/PQ (~7%)</label>
-<label><input type="checkbox"> Stacked-pattern problems: Top-K Frequent (hashmap + heap)</label>
-<label><input type="checkbox"> Sliding Window Median (window + two heaps)</label>
+<h2>Coding — 70 hrs, 1 hr/day, weeks 1–10</h2>
+<p class="sub">Runs in parallel with every other block. Don't batch it. Problem list:
+  <a href="https://neetcode.io/practice">NeetCode 150</a>, in <a href="https://neetcode.io/roadmap">roadmap</a> order.</p>
+<div class="note">
+  Daily hour: <b>1–2 new problems + 1 cold redo</b> from 2 days ago. 25-min timebox per new problem, then
+  NeetCode's video. That's ~10 new/week, ~100 total — enough for <b>Tiers 1–3 in full</b> (107). Tier 4 only if ahead.
+  A category box means <b>the pattern clicks</b>, not every problem done. Weeks 8–10: 2 of the 7 hours become mocks.
+</div>
+
+<h3>Tier 1 — weeks 1–3 · arrays/strings ~30% of asks</h3>
+<label><input type="checkbox"> Arrays &amp; Hashing (9)</label>
+<label><input type="checkbox"> Two Pointers (5)</label>
+<label><input type="checkbox"> Sliding Window (6)</label>
+<label><input type="checkbox"> Stack (7)</label>
+<label><input type="checkbox"> Binary Search (7) — ~8% of asks</label>
+
+<h3>Tier 2 — weeks 4–6 · trees + graphs ~25%</h3>
+<label><input type="checkbox"> Linked List (11) — low interview weight, don't linger</label>
+<label><input type="checkbox"> Trees (15)</label>
+<label><input type="checkbox"> Heap / Priority Queue (7) — ~7% of asks</label>
+<label><input type="checkbox"> Graphs (13) — graph frequency rose on senior tracks 2022–24. Before week 6: phone screens hit it</label>
+
+<h3>Tier 3 — weeks 7–10</h3>
+<label><input type="checkbox"> Backtracking (9)</label>
+<label><input type="checkbox"> 1-D DP (12) — DP ~15% of asks</label>
+<label><input type="checkbox"> Intervals (6)</label>
+
+<h3>Tier 4 — only if ahead, or before Google</h3>
+<label><input type="checkbox"> Tries (3)</label>
+<label><input type="checkbox"> Advanced Graphs (6)</label>
+<label><input type="checkbox"> 2-D DP (11)</label>
+<label><input type="checkbox"> Greedy (8)</label>
+<label><input type="checkbox"> Math &amp; Geometry (8) · Bit Manipulation (7)</label>
+
+<h3>Stacked-pattern problems — do these even if Hard</h3>
+<label><input type="checkbox"> Top K Frequent Elements (hashmap + heap/bucket)</label>
+<label><input type="checkbox"> Find Median from Data Stream (two heaps)</label>
+<label><input type="checkbox"> Sliding Window Maximum (window + monotonic deque)</label>
 <label><input type="checkbox"> Word Ladder (BFS over implicit graph)</label>
+<label><input type="checkbox"> Course Schedule II, then extend it: <b>return the cycle itself</b>, not just "impossible" (DFS + path stack)</label>
 <label><input type="checkbox"> Talk out loud every session — silent solving trains the wrong skill</label>
+
+<h3>Company drills — last 2 weeks before each onsite</h3>
+<label><input type="checkbox"> <b>Meta</b> — 2 mediums back to back in 40 min, no hints. Repeat until it's routine</label>
+<label><input type="checkbox"> <b>Google</b> — after solving, ask yourself the follow-up: stream input, 10× data, doesn't fit in memory</label>
+<label><input type="checkbox"> Company-tagged LeetCode, last 6 months (Premium) for the company you're about to face</label>
 <div class="note">
   DSA bar is <b>not</b> lower for senior. CoderPad 2026: algorithmic questions in 43% of assessments,
   flat from 44% in 2025. Senior problems stack patterns rather than testing one.
 </div>
 
-<h2>System design — 18 hrs, weeks 2–6</h2>
-<h3>Phase 1 — the 12 primitives</h3>
+<h2>System design — 70 hrs, 1 hr/day, weeks 1–10</h2>
+<h3>Phase 1 — primitives, weeks 1–2 (~14 hrs)</h3>
 <label><input type="checkbox"> APIs · SQL vs NoSQL · CAP</label>
 <label><input type="checkbox"> Load balancers · caching · message queues</label>
 <label><input type="checkbox"> Indexing · replication · consistent hashing</label>
 <label><input type="checkbox"> Failover · web auth/security · scaling</label>
+<label><input type="checkbox"> Key technologies: Postgres, Redis, Kafka, DynamoDB/Cassandra, Elasticsearch, S3 — what each is for and one limit each (Hello Interview has these write-ups)</label>
+<label><input type="checkbox"> Back-of-envelope estimation: QPS, storage, bandwidth — Google and Meta expect it unprompted</label>
+<label><input type="checkbox"> DDIA ch. 5–9 only (replication, partitioning, transactions, distributed trouble, consensus) — spill into week 3 is fine</label>
 
-<h3>Phase 2 — classic prompts (6–8)</h3>
+<h3>Phase 2 — prompts, weeks 3–8 (~42 hrs, 2 per week)</h3>
+<p class="sub">Each prompt = 3 days. Day 1: read a reference (Hello Interview, or Jordan Has No Life on YouTube).
+  Day 2: design it cold, out loud, 45-min timer. Day 3: Phase 3 defense drill on your own design.</p>
+<label><input type="checkbox"> First 3 prompts: run day 2 with an AI playing interviewer that hints only when asked ("my instinct is X, is that right?"). Freezing is usually a skill gap, not nerves — guided reps fix it. No hints after that.</label>
 <label><input type="checkbox"> <b>Rate limiter</b> — highest-frequency single prompt, do it first</label>
-<label><input type="checkbox"> Pastebin / unique ID generation</label>
-<label><input type="checkbox"> Notification system</label>
-<label><input type="checkbox"> Chat (polling vs WebSockets)</label>
-<label><input type="checkbox"> Job scheduler</label>
-<label><input type="checkbox"> Ticketmaster (contention + consistency)</label>
+<label><input type="checkbox"> URL shortener / unique ID generation</label>
+<label><input type="checkbox"> News feed (fan-out on write vs read) — Meta</label>
+<label><input type="checkbox"> Chat / Messenger / WhatsApp (WebSockets, delivery receipts, presence) — Meta</label>
+<label><input type="checkbox"> Typeahead / search autocomplete — Google</label>
+<label><input type="checkbox"> Top-K / trending / ad click aggregator (stream processing) — Meta, Amazon</label>
+<label><input type="checkbox"> Video streaming — YouTube / Netflix (encoding, CDN, adaptive bitrate)</label>
+<label><input type="checkbox"> File sync — Dropbox / Google Drive (chunking, conflict resolution)</label>
+<label><input type="checkbox"> Proximity — Yelp / Uber (geohash, quadtree)</label>
+<label><input type="checkbox"> Ticketmaster / flash sale (contention + consistency) — Amazon</label>
+<label><input type="checkbox"> Distributed KV store / cache</label>
+<label><input type="checkbox"> Web crawler — Google</label>
 
-<h3>Phase 3 — defense drill</h3>
+<h3>Weeks 9–10 — timed mocks (~14 hrs)</h3>
+<label><input type="checkbox"> Redo 3 weakest Phase 2 prompts cold, full 45 min, no notes</label>
+<label><input type="checkbox"> Rehearse the 3 most-asked (URL shortener, rate limiter, news feed) until you can present them without stalling</label>
+<label><input type="checkbox"> If Meta Product Architecture: redo news feed + chat API-first (endpoints, pagination, data model, client)</label>
+<label><input type="checkbox"> Run each per-company flavor below once against a matching prompt</label>
+
+<h3>Phase 3 — defense drill (day 3 of every prompt)</h3>
 <label><input type="checkbox"> After each design, argue the <b>opposite</b> position for 10 min. Can't? You didn't understand the tradeoff.</label>
 <label><input type="checkbox"> Idempotency keys — and dedupe <i>before</i> the rate-limit check so retries don't burn quota</label>
 <label><input type="checkbox"> At-least-once vs exactly-once vs at-most-once — name which you chose and why</label>
@@ -131,18 +199,16 @@
 
 <h3>Per-company flavor</h3>
 <ul>
-  <li><b>Cloudflare</b> — "design it <i>without</i> managed cloud services like S3 or Pub/Sub"</li>
-  <li><b>Confluent</b> — partitioning, offset tracking, exactly-once. Always name what you trade off; they look for that framing.</li>
-  <li><b>Datadog</b> — narrower than peers, no "Design Twitter". Used explicitly for leveling.</li>
-  <li><b>Plaid</b> — webhooks, retry/backoff, flaky bank APIs, idempotency</li>
-  <li><b>Snowflake</b> — DB internals probed. Reported prompt: design an RPC system.</li>
+  <li><b>Meta</b> — you drive; interviewer follows. Staff signal is picking the one hard part and going deep, not covering every box. E6 loops often carry a second design round.</li>
+  <li><b>Google</b> — numbers first, then design. Expect deep dives on storage and sharding choices. Prompts often mirror Google products.</li>
+  <li><b>Amazon</b> — LP questions inside the design round. Talk operations: alarms, dashboards, failure blast radius, cost.</li>
+  <li><b>Netflix</b> — availability over consistency, multi-region, graceful degradation, chaos testing. Name what fails and what the user sees.</li>
+  <li><b>Apple / Microsoft</b> — team-dependent; often grounded in the team's real system. Ask the recruiter what the team owns.</li>
 </ul>
 
 <div class="note">
-  AI/LLM design is <b>additive, not a replacement</b>. Anthropic's design round asks LLM-serving
-  (batching, queuing, GPU utilization under variable load). Everywhere else classic distsys is still
-  the round you pass or fail on — interviewing.io's design guide has zero LLM content.
-  Skip DDIA cover-to-cover.
+  Classic distributed systems is the round you pass or fail on at big tech. ML system design only if the role
+  is ML-adjacent — confirm with recruiter. Skip DDIA outside ch. 5–9.
 </div>
 
 <h2>Behavioral — 12 hrs, weeks 4–8</h2>
@@ -162,10 +228,11 @@
 </ul>
 
 <h3>Company-specific</h3>
-<label><input type="checkbox"> <b>Anthropic</b> — how would you feel if the company dropped AI ambitions for safety and "sent the stock to zero"? Plus a moral quandary you faced. Skepticism scores better than enthusiasm.</label>
-<label><input type="checkbox"> <b>Stripe</b> — graded on "use of soft power". Staff+ Presentation round drives leveling.</label>
-<label><input type="checkbox"> <b>Airbnb</b> — technical experience round carries leveling weight; they send a tenets list beforehand, map a story to each</label>
-<label><input type="checkbox"> <b>Palantir</b> — no dedicated round; ~20 min of behavioral embedded in <i>every</i> onsite round</label>
+<label><input type="checkbox"> <b>Amazon</b> — map ≥2 stories to each of the 16 Leadership Principles. Every round probes 2–3 LPs; the Bar Raiser can veto. Expect "tell me another" — no reusing a story in the same loop.</label>
+<label><input type="checkbox"> <b>Meta</b> — behavioral round weighs heavily on E5 vs E6. Prep conflict, ambiguity, and a cross-team result with numbers.</label>
+<label><input type="checkbox"> <b>Google</b> — "Googleyness &amp; Leadership" round. Hiring committee reads the written packet, not you — make impact quotable. Prep a 2-min pitch for team-match calls.</label>
+<label><input type="checkbox"> <b>Netflix</b> — read the culture memo. Expect several culture conversations: candor, context not control, keeper test. Disagree-with-your-manager stories score.</label>
+<label><input type="checkbox"> <b>Microsoft</b> — "as appropriate" final round: growth mindset, learning from failure</label>
 
 <div class="note">
   Technical gets you hired, behavioral sets your level. An ex-Meta hiring committee chair reads
@@ -173,62 +240,62 @@
   Plain STAR breaks at staff scope — stories span months and multiple workstreams.
 </div>
 
-<h2>Debug &amp; code review — 6 hrs, weeks 6–7</h2>
-<label><input type="checkbox"> Pull a real bug from your own git history, have someone reintroduce it, find it cold</label>
+<h2>Code quality &amp; dry-run — 6 hrs, weeks 6–7</h2>
+<label><input type="checkbox"> Dry-run every solution by hand on 3 inputs (normal, empty, edge) before saying "done" — assume code won't run</label>
+<label><input type="checkbox"> State time/space complexity unprompted, then name what you'd change at 10× scale</label>
+<label><input type="checkbox"> Write 3 test cases out loud after each solution — Meta and Google interviewers note it</label>
 <label><input type="checkbox"> Review an unfamiliar OSS PR on a 45-min timer</label>
-<label><input type="checkbox"> Clone an OSS repo, ship a small feature in 90 min</label>
+<label><input type="checkbox"> Read and fix code you didn't write: clone an OSS repo, break a test, find the cause cold — some loops have a debugging round</label>
 <div class="note">
   Grading axis: <b>juniors flag style, seniors flag correctness risk and rank findings by impact.</b>
-  Stripe's Bug Bash rewards methodical hypothesis-testing over barreling in. Palantir plants
-  <span class="warn">deliberate red herrings</span> — don't fixate on the first bug.
+  Clean variable names and helper functions count at senior level — working-but-messy reads as mid-level.
   CoderPad 2026: code review 21%, debugging 19% of assessments.
 </div>
 
 <h2>Weeks 8–10 — Volume</h2>
-<label><input type="checkbox"> 2 mocks/week minimum</label>
+<label><input type="checkbox"> 2 mocks/week minimum — taken from the daily coding/design hours, not added on top</label>
+<label><input type="checkbox"> ~6 human mocks total (peers, ex-colleagues) for calibration; AI mocks as extra reps on top — AI won't flag what a real interviewer marks down</label>
 <label><input type="checkbox"> At least half behavioral and design, not coding — that's where 10+ YOE seniors report getting rejected while coding goes fine</label>
 
 <h2>Loop lengths — for sequencing applications</h2>
 <table>
   <tr><th>Company</th><th>Weeks</th></tr>
-  <tr><td>Anthropic · Palantir · Figma</td><td>3–4</td></tr>
-  <tr><td>Airbnb</td><td>2–5</td></tr>
-  <tr><td>Snowflake (staff 4–6)</td><td>2–4</td></tr>
-  <tr><td>Cloudflare</td><td>3–5</td></tr>
-  <tr><td>Stripe (2 with referral)</td><td>~6</td></tr>
-  <tr><td>Datadog</td><td>~6</td></tr>
-  <tr><td>Coinbase</td><td>6–8</td></tr>
-  <tr><td>Databricks</td><td>up to 8</td></tr>
+  <tr><td>Amazon · Microsoft</td><td>3–6</td></tr>
+  <tr><td>Netflix</td><td>4–6</td></tr>
+  <tr><td>Meta (+ team match)</td><td>4–8</td></tr>
+  <tr><td>Apple (team-dependent)</td><td>4–8</td></tr>
+  <tr><td>Google (HC + team match, can stall)</td><td>6–12+</td></tr>
 </table>
 
 <footer>
-  <p>Skipped: DDIA cover-to-cover, ML system design fundamentals, take-home practice (only 21% of orgs
-  still use them), Java/JVM depth. Add when: a target company confirms one.</p>
-  <p>Sources: CoderPad State of Tech Hiring 2025/2026 · interviewing.io company guides and practice-gap
-  research · Hello Interview · Axios 2026-08-24 (Anthropic) · Databricks Staff Backend job posting.
-  Company loop details are aggregated from candidate reports and go stale — the recruiter is the
-  source of truth for your specific loop.</p>
+  <p>Skipped: NeetCode Tier 4 unless ahead, DDIA outside ch. 5–9, ML system design unless the role is ML,
+  take-home practice (only 21% of orgs still use them). Add when: a target company confirms one.</p>
+  <p>Sources: NeetCode 150 · CoderPad State of Tech Hiring 2025/2026 · interviewing.io company guides and practice-gap
+  research · Hello Interview · Jordan Has No Life (YouTube) · Blind candidate reports · Amazon Leadership Principles · Netflix culture memo.
+  Company loop details and loop lengths are rough ranges aggregated from candidate reports and go stale — the
+  recruiter is the source of truth for your specific loop.</p>
   <p><button id="reset">Reset all checkboxes</button></p>
 </footer>
 
 <script>
-// Checkbox state keyed by index, kept in localStorage. Index is stable as long as the list order is.
+// Checkbox state keyed by label text, kept in localStorage, so editing the list doesn't shift other items.
 const boxes = [...document.querySelectorAll('input[type=checkbox]')];
-const KEY = 'interview-plan-v1';
+const id = b => b.parentNode.textContent.trim();
+const KEY = 'interview-plan-v2';
 const prog = document.getElementById('prog');
 const done = document.getElementById('done');
 document.getElementById('total').textContent = boxes.length;
 prog.max = boxes.length;
 
-let saved = [];
-try { saved = JSON.parse(localStorage.getItem(KEY)) || []; } catch {}
-boxes.forEach((b, i) => b.checked = !!saved[i]);
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch {}
+boxes.forEach(b => b.checked = !!saved[id(b)]);
 
 function sync() {
   const n = boxes.filter(b => b.checked).length;
   done.textContent = n;
   prog.value = n;
-  try { localStorage.setItem(KEY, JSON.stringify(boxes.map(b => b.checked))); } catch {}
+  try { localStorage.setItem(KEY, JSON.stringify(Object.fromEntries(boxes.map(b => [id(b), b.checked])))); } catch {}
 }
 boxes.forEach(b => b.addEventListener('change', sync));
 document.getElementById('reset').addEventListener('click', () => {

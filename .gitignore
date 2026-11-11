@@ -20,3 +20,9 @@ resume.txt
 
 # OS
 .DS_Store
+
+# Dashboard
+dashboard/node_modules/
+dashboard/.next/
+dashboard/next-env.d.ts
+resume-*.txt

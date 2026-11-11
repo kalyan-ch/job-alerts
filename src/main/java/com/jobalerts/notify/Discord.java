@@ -1,5 +1,6 @@
 package com.jobalerts.notify;
 
+import com.jobalerts.ats.Http;
 import com.jobalerts.config.Props;
 import com.jobalerts.domain.Scored;
 import org.slf4j.Logger;
@@ -27,11 +28,12 @@ public class Discord {
             log.info("nothing above threshold, not sending");
             return;
         }
+        // 100 jobs is ~8 messages; webhooks allow 5 per 2s, so the burst can 429.
         for (String chunk : chunks(top)) {
-            http.post().uri(p.discordWebhook())
+            Http.retry(() -> http.post().uri(p.discordWebhook())
                     .contentType(MediaType.APPLICATION_JSON)
                     .body(Map.of("content", chunk, "flags", 4))   // 4 = suppress link embeds
-                    .retrieve().toBodilessEntity();
+                    .retrieve().toBodilessEntity(), Http.BACKOFF);
         }
         log.info("sent {} jobs", top.size());
     }
